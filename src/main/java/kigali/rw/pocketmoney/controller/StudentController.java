@@ -44,10 +44,10 @@ public class StudentController {
 
         if (studOptional.isEmpty()) {
 
-            return  new ResponseEntity<>("The dormitory with that id does not exist", HttpStatus.NOT_FOUND);
+            return  new ResponseEntity<>("The student with that id does not exist", HttpStatus.NOT_FOUND);
             
         }
-        return new ResponseEntity<>(studOptional, HttpStatus.OK);
+        return new ResponseEntity<>(studOptional.get(), HttpStatus.OK);
     }
 
     @PutMapping ("/update/{id}")
