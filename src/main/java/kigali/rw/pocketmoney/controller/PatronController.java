@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kigali.rw.pocketmoney.domain.Patron;
@@ -79,5 +80,12 @@ public class PatronController {
 
         return  new  ResponseEntity<>(result,HttpStatus.OK);
     }
+
+     @GetMapping ("/by-duty")
+        public  ResponseEntity<?> getPatron(@RequestParam String name){
+            List<Patron> patrons= patronService.getPatron(name);
+            return new ResponseEntity<>(patrons, HttpStatus.OK);
+
+        }
 
 }

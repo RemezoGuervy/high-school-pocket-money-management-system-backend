@@ -63,4 +63,8 @@ public class PatronService {
         return "Patron deleted successfully";
     }
 
+    public  List<Patron> getPatron(String name){
+        return patronRepository.searchByDutyName(name);
+    }
+
 }
