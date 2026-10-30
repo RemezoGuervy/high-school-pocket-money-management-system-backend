@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.hibernate.cache.spi.entry.StructuredMapCacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kigali.rw.pocketmoney.domain.Student;
@@ -74,6 +76,12 @@ public class StudentController {
         }
 
         return  new ResponseEntity<>(studentDel,HttpStatus.OK);
+        }
+
+        @GetMapping ("/by-last-name")
+        public  ResponseEntity<?> getByLastName(@RequestParam String lastName){
+            List<Student> students = studentService.getByLastName(lastName);
+            return  new ResponseEntity<>(students, HttpStatus.OK);
         }
 
 

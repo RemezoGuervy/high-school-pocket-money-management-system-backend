@@ -65,4 +65,8 @@ public class StudentService {
         return "Student deleted successfully";
     }
 
+    public List<Student> getByLastName(String lastName){
+        return studentRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
 }
