@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import kigali.rw.pocketmoney.domain.Patron;
 import kigali.rw.pocketmoney.domain.WithdrawalRequest;
 import kigali.rw.pocketmoney.domain.WithdrawalStatus;
 
@@ -14,5 +15,7 @@ public interface WithdrawalRequestRepository extends JpaRepository <WithdrawalRe
     List<WithdrawalRequest> findByStatusOrderByRequestDateAsc(WithdrawalStatus status);
 
     List<WithdrawalRequest> findByRequestDateBetweenOrderByRequestDateAsc(LocalDate start, LocalDate end);
+
+    boolean existsByPatronAndRequestDateAndStatusNot(Patron patron, LocalDate requestDate, WithdrawalStatus status);
 
 }

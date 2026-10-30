@@ -33,6 +33,15 @@ public class WithdrawalRequestController {
     @PostMapping ("/save")
     public  ResponseEntity<?> save(@RequestBody  WithdrawalRequest withdrawalRequest){
         String result= withdrawalRequestService.save(withdrawalRequest);
+        
+        if (result.equals("Withdrawal request date cannot be in the past")) {
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            
+        }
+        if (result.equals("Patron already handles a withdrawal on that date")) {
+            return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+            
+        }
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 

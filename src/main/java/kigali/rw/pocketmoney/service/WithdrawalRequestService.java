@@ -18,7 +18,21 @@ public class WithdrawalRequestService {
     @Autowired 
     private  WithdrawalRequestRepository withdrawalRequestRepository;
 
+    
+
     public  String save(WithdrawalRequest withdrawalRequest){
+
+        if (withdrawalRequest.getRequestDate().isBefore(LocalDate.now())) {
+            return "Withdrawal request date cannot be in the past";
+            
+        }
+
+        if(withdrawalRequestRepository.existsByPatronAndRequestDateAndStatusNot(withdrawalRequest.getPatron(),withdrawalRequest.getRequestDate(), WithdrawalStatus.REJECTED)){
+
+            return "Patron already handles a withdrawal on that date";
+        }
+
+        withdrawalRequest.setStatus(WithdrawalStatus.REQUESTED);
         withdrawalRequestRepository.save(withdrawalRequest);
 
         return "Withdrawal request saved successfully";
