@@ -67,5 +67,9 @@ public class DormitoryService {
         return "Dormitory deleted successfully";
     }
 
+    public List<Dormitory> getFree(){
+        return dormitoryRepository.findFreeDormitories();
+    }
+
 
 }

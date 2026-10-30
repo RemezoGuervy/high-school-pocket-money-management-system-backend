@@ -78,5 +78,10 @@ public class DormitoryController {
         return  new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping ("/free")
+    public  ResponseEntity<?> getFree(){
+        List<Dormitory> dorm= dormitoryService.getFree();
+        return new ResponseEntity<>(dorm, HttpStatus.OK);
+    }
 
 }

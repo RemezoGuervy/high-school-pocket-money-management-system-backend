@@ -75,6 +75,11 @@ public class DutyController {
     }
     
    
-    
+    @GetMapping ("/unused")
+    public  ResponseEntity<?> getUn(){
+        List<Duty>  duties= dutyService.getUn();
+
+        return new ResponseEntity<>(duties, HttpStatus.OK);
+    }
 
 }

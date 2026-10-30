@@ -64,4 +64,8 @@ public class DutyService {
         return "Duty deleted successfully";
     }
 
+    public  List<Duty> getUn(){
+        return dutyRepository.findUnusedDuties();
+    }
+
 }
