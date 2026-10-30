@@ -1,5 +1,6 @@
 package kigali.rw.pocketmoney.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -66,6 +67,10 @@ public class WithdrawalRequestService {
 
     public  List<WithdrawalRequest> getByStatus(WithdrawalStatus status){
         return withdrawalRequestRepository.findByStatusOrderByRequestDateAsc(status);
+    }
+
+    public List<WithdrawalRequest> getBetween(LocalDate start, LocalDate end){
+        return withdrawalRequestRepository.findByRequestDateBetweenOrderByRequestDateAsc(start, end);
     }
 
 }

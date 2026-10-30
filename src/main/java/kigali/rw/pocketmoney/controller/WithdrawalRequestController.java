@@ -1,5 +1,6 @@
 package kigali.rw.pocketmoney.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -83,6 +84,16 @@ public class WithdrawalRequestController {
         List<WithdrawalRequest> withdrawal= withdrawalRequestService.getByStatus(status);
 
         return new ResponseEntity<>(withdrawal, HttpStatus.OK);
+    }
+
+    @GetMapping ("/between")
+    public ResponseEntity<?> getBetween(@RequestParam  String start , @RequestParam String end){
+        LocalDate startDate= LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+
+        List<WithdrawalRequest> withdrawal= withdrawalRequestService.getBetween(startDate, endDate);
+        return  new  ResponseEntity<>(withdrawal, HttpStatus.OK);
+        
     }
 
 }
