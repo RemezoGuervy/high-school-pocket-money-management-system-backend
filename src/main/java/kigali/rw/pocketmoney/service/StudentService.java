@@ -69,4 +69,7 @@ public class StudentService {
         return studentRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
     }
 
+    public List<Student> getStudent(UUID patronId){
+        return  studentRepository.findStudentsOfPatron(patronId);
+    }
 }

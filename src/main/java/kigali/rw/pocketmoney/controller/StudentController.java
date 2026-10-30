@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.hibernate.cache.spi.entry.StructuredMapCacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import kigali.rw.pocketmoney.domain.Patron;
 import kigali.rw.pocketmoney.domain.Student;
+import kigali.rw.pocketmoney.repository.PatronRepository;
+import kigali.rw.pocketmoney.service.PatronService;
 import kigali.rw.pocketmoney.service.StudentService;
 
 @RestController 
@@ -27,6 +32,9 @@ public class StudentController {
 
     @Autowired 
     private  StudentService studentService;
+
+    @Autowired 
+    private  PatronService patronService;
 
     @PostMapping ("/save")
     public  ResponseEntity<?> save(@RequestBody  Student student){
@@ -84,6 +92,19 @@ public class StudentController {
             return  new ResponseEntity<>(students, HttpStatus.OK);
         }
 
+        @GetMapping ("/of-patron/{patronId}")
+        public ResponseEntity<?> getStudent(@PathVariable UUID patronId){
+            Optional<Patron> patronOp= patronService.getById(patronId);
+
+            if (patronOp.isEmpty()) {
+
+                return  new ResponseEntity<>("The Patron with that id does not exist", HttpStatus.NOT_FOUND);
+                
+            }
+
+            List<Student> students =studentService.getStudent(patronId);
+            return  new  ResponseEntity<>(students, HttpStatus.OK);
+        }
        
 
 
