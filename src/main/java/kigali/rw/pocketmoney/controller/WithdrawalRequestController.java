@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kigali.rw.pocketmoney.domain.WithdrawalRequest;
+import kigali.rw.pocketmoney.domain.WithdrawalStatus;
 import kigali.rw.pocketmoney.service.WithdrawalRequestService;
 
 @RestController 
@@ -74,6 +76,13 @@ public class WithdrawalRequestController {
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping ("/by-status")
+    public  ResponseEntity<?> getByStatus(@RequestParam WithdrawalStatus status){
+        List<WithdrawalRequest> withdrawal= withdrawalRequestService.getByStatus(status);
+
+        return new ResponseEntity<>(withdrawal, HttpStatus.OK);
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kigali.rw.pocketmoney.domain.WithdrawalRequest;
+import kigali.rw.pocketmoney.domain.WithdrawalStatus;
 import kigali.rw.pocketmoney.repository.WithdrawalRequestRepository;
 
 @Service 
@@ -61,6 +62,10 @@ public class WithdrawalRequestService {
 
         withdrawalRequestRepository.deleteById(id);
         return "Withdrawal request  deleted successfully";
+    }
+
+    public  List<WithdrawalRequest> getByStatus(WithdrawalStatus status){
+        return withdrawalRequestRepository.findByStatusOrderByRequestDateAsc(status);
     }
 
 }
