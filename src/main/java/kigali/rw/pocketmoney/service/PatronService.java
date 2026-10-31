@@ -7,8 +7,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kigali.rw.pocketmoney.domain.Dormitory;
 import kigali.rw.pocketmoney.domain.Duty;
 import kigali.rw.pocketmoney.domain.Patron;
+import kigali.rw.pocketmoney.repository.DormitoryRepository;
 import kigali.rw.pocketmoney.repository.DutyRepository;
 import kigali.rw.pocketmoney.repository.PatronRepository;
 
@@ -16,6 +18,9 @@ import kigali.rw.pocketmoney.repository.PatronRepository;
 public class PatronService {
     @Autowired 
     private PatronRepository patronRepository;
+
+    @Autowired 
+    private DormitoryRepository dormitoryRepository;
 
     @Autowired 
     private  DutyRepository duDutyRepository;
@@ -96,4 +101,32 @@ public class PatronService {
         return  "Duty added to the patron";
     }
 
+
+    public String moveDorm(UUID patronId, int dormNumber){
+        Optional<Patron> result=patronRepository.findById(patronId);
+        Optional<Dormitory> resultDor= dormitoryRepository.findByDormNumber(dormNumber);
+
+        if(result.isEmpty()){
+            return "The patron with that id does not exist";
+        }
+        if (resultDor.isEmpty()) {
+            return "The dormitory with that dormNumber does not exist";
+            
+        }
+        
+        Patron patron = result.get();
+        Dormitory dormitory= resultDor.get();
+
+        if (patronRepository.existsByDormitory(dormitory)) {
+            return "That dormitory is taken by another patron";
+            
+        }
+
+        patron.setDormitory(dormitory);
+        patronRepository.save(patron);
+
+        return "Dormitory changed successfully";
+
+        
+    }
 }

@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -97,6 +100,24 @@ public class PatronController {
             
         }
         if (result.equals("The patron already has that duty")) {
+            return  new ResponseEntity<>(result, HttpStatus.CONFLICT);
+            
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PatchMapping ("/{patronId}/dormitory")
+    public ResponseEntity<?> moveDorm(@PathVariable  UUID patronId, @RequestParam  int dormNumber){
+        String result= patronService.moveDorm(patronId, dormNumber);
+
+        if (result.equals("The patron with that id does not exist") || result.equals("The dormitory with that dormNumber does not exist")) {
+
+            return  new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+            
+        }
+
+        if (result.equals("That dormitory is taken by another patron")) {
+
             return  new ResponseEntity<>(result, HttpStatus.CONFLICT);
             
         }
