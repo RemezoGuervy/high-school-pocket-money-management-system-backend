@@ -1,11 +1,13 @@
 package kigali.rw.pocketmoney.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,5 +48,18 @@ public class PayoutReceiptController {
         List<PayoutReceipt> receipt= payoutReceiptService.getByStudentNumber(studentNumber);
         return  new  ResponseEntity<>(receipt, HttpStatus.OK);
     }
+
+    @DeleteMapping ("/delete/{id}")
+    public  ResponseEntity<?> delete(@PathVariable UUID id){
+        String result= payoutReceiptService.delete(id);
+
+        if (result.equals("The payout receipt with that id does not exist")) {
+            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+            
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
 }

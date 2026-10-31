@@ -53,4 +53,18 @@ public class PayoutReceiptService {
         return  payoutReceiptRepository.searchReceiptsByStudentNumber(studentNumber);
     }
 
+    public String delete(UUID id){
+
+        Optional<PayoutReceipt> result = payoutReceiptRepository.findById(id);
+
+        if (result.isEmpty()) {
+            return  "The payout receipt with that id does not exist";
+            
+        }
+
+        payoutReceiptRepository.deleteById(id);
+        return  "Payout receipt deleted successfully";
+
+    }
+
 }

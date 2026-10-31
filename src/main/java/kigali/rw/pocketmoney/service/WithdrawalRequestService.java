@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kigali.rw.pocketmoney.domain.WithdrawalRequest;
 import kigali.rw.pocketmoney.domain.WithdrawalStatus;
+import kigali.rw.pocketmoney.repository.PayoutReceiptRepository;
 import kigali.rw.pocketmoney.repository.WithdrawalRequestRepository;
 
 @Service 
@@ -17,6 +18,9 @@ public class WithdrawalRequestService {
 
     @Autowired 
     private  WithdrawalRequestRepository withdrawalRequestRepository;
+
+    @Autowired 
+    private PayoutReceiptRepository payoutReceiptRepository;
 
     
 
@@ -73,6 +77,10 @@ public class WithdrawalRequestService {
         if (result.isEmpty()) {
             return  "The withdrawal request with that id does not exist";
             
+        }
+
+        if (payoutReceiptRepository.existsByWithdrawalRequest(result.get())) {
+            return "That withdrawal request has payout receipts, delete them first";
         }
 
         withdrawalRequestRepository.deleteById(id);

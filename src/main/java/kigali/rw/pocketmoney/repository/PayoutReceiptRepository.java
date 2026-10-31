@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import kigali.rw.pocketmoney.domain.PayoutReceipt;
+import kigali.rw.pocketmoney.domain.WithdrawalRequest;
+
 import java.util.List;
 import java.time.LocalDate;
 
@@ -16,6 +18,8 @@ public interface PayoutReceiptRepository extends JpaRepository<PayoutReceipt, UU
 
     @Query ("SELECT p FROM PayoutReceipt p WHERE p.withdrawalRequest.student.studentNumber = :studentNumber ORDER BY p.paidDate Desc")
     List<PayoutReceipt> searchReceiptsByStudentNumber(@Param("studentNumber") String studentNumber );
+
+    boolean existsByWithdrawalRequest(WithdrawalRequest withdrawalRequest);
 
 
 

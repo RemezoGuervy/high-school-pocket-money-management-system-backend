@@ -86,6 +86,11 @@ public class WithdrawalRequestController {
             
         }
 
+        if (result.equals("That withdrawal request has payout receipts, delete them first")) {
+            return  new ResponseEntity<>(result,HttpStatus.CONFLICT);
+            
+        }
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
