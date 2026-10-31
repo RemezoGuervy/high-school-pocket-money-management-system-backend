@@ -125,4 +125,8 @@ public class WithdrawalRequestService {
         return "Order status updated successfully";
     }
 
+    public  List<Object[]> getCountByStatus(){
+        return withdrawalRequestRepository.countRequestPerStatus();
+    }
+
 }

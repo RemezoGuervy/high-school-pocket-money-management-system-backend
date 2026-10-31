@@ -124,4 +124,10 @@ public class WithdrawalRequestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping ("/stats/by-status")
+    public ResponseEntity<?> getStats(){
+        List<Object[]>  stats = withdrawalRequestService.getCountByStatus();
+        return new ResponseEntity<>(stats, HttpStatus.OK);
+    }
+
 }
