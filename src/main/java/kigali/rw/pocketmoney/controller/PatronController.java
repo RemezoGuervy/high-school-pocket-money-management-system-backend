@@ -88,4 +88,19 @@ public class PatronController {
 
         }
 
+    @PutMapping ("/{patronId}/duties/{dutyId}")
+    public  ResponseEntity<?> addDuty(@PathVariable UUID patronId, @PathVariable  UUID dutyId){
+        String result= patronService.addDuty(patronId, dutyId);
+
+        if (result.equals("The patron with that id does not exist") || result.equals("That duty does not exist")) {
+            return  new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+            
+        }
+        if (result.equals("The patron already has that duty")) {
+            return  new ResponseEntity<>(result, HttpStatus.CONFLICT);
+            
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }
