@@ -130,4 +130,11 @@ public class WithdrawalRequestController {
         return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<?> cancelDayPatron(@RequestParam UUID patronId, @RequestParam  String date){
+
+        String result = withdrawalRequestService.cancelDay(patronId, LocalDate.parse(date));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

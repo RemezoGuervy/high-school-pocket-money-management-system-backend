@@ -129,4 +129,8 @@ public class WithdrawalRequestService {
         return withdrawalRequestRepository.countRequestPerStatus();
     }
 
+    public  String cancelDay(UUID patronId, LocalDate day){
+        int count = withdrawalRequestRepository.cancelPatronDay(patronId, day, WithdrawalStatus.REJECTED, WithdrawalStatus.DISBURSED);
+        return count + "withdrawal requests cancelled";
+    }
 }
