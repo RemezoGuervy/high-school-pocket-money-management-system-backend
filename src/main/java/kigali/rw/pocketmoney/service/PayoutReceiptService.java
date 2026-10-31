@@ -1,6 +1,7 @@
 package kigali.rw.pocketmoney.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,6 +47,10 @@ public class PayoutReceiptService {
         payoutReceiptRepository.save(payoutReceipt);
 
         return "Payout receipt saved successfully";
+    }
+
+    public  List<PayoutReceipt> getByStudentNumber(String studentNumber){
+        return  payoutReceiptRepository.searchReceiptsByStudentNumber(studentNumber);
     }
 
 }
