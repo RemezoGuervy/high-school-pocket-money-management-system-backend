@@ -87,4 +87,34 @@ public class WithdrawalRequestService {
         return withdrawalRequestRepository.findByRequestDateBetweenOrderByRequestDateAsc(start, end);
     }
 
+    public  String  updateStatus(UUID id, WithdrawalStatus status){
+        Optional<WithdrawalRequest> result= withdrawalRequestRepository.findById(id);
+
+        if (result.isEmpty()) {
+            return "The withdrawal request with that id does not exist";
+            
+        }
+
+        WithdrawalRequest withdrawalRequest = result.get();
+        WithdrawalStatus currentStatus = withdrawalRequest.getStatus();
+
+        boolean allowed = false;
+
+        if(currentStatus == WithdrawalStatus.REQUESTED && (status == WithdrawalStatus.APPROVED || status == WithdrawalStatus.REJECTED)){
+            allowed = true; 
+        }
+
+        if (currentStatus == WithdrawalStatus.APPROVED && (status == WithdrawalStatus.DISBURSED || status == WithdrawalStatus.REJECTED)) {
+            allowed = true;
+            
+        }
+        if (!allowed) {
+            return "Cannot change status from "+ currentStatus + "to" + status;
+        }
+
+        withdrawalRequest.setStatus(status);
+        withdrawalRequestRepository.save(withdrawalRequest);
+        return "Order status updated successfully";
+    }
+
 }
