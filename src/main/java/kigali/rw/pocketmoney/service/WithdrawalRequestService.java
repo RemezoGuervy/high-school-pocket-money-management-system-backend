@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import kigali.rw.pocketmoney.domain.WithdrawalRequest;
 import kigali.rw.pocketmoney.domain.WithdrawalStatus;
 import kigali.rw.pocketmoney.repository.PayoutReceiptRepository;
@@ -129,6 +130,7 @@ public class WithdrawalRequestService {
         return withdrawalRequestRepository.countRequestPerStatus();
     }
 
+    @Transactional 
     public  String cancelDay(UUID patronId, LocalDate day){
         int count = withdrawalRequestRepository.cancelPatronDay(patronId, day, WithdrawalStatus.REJECTED, WithdrawalStatus.DISBURSED);
         return count + "withdrawal requests cancelled";
