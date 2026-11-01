@@ -13,7 +13,7 @@
 
 2.Clone the repository.
 
-3.In postgreSql, create a new database and call it 'pocket_money_db'.
+3.In postgreSql, create a new database and call it 'pocket_money_db'.  
 
 4. in the folder navigate to resource to application properties and then set the following : 
 'spring.application.name=high-school-pocket-money-management-system
@@ -25,7 +25,8 @@ spring.datasource.password=your set password here
 spring.jpa.hibernate.ddl-auto= update
 spring.jpa.show-sql= true
 
-server.port = your own port to be set here '.
+server.port = your own port to be set here '.  
 
-5. Then after in the project folder open your terminal and then run : 'mvn spring-boot:run'.
+5. Then after in the project folder open your terminal and then run : 'mvn spring-boot:run'.  
+   
 6. The api will start at 'http://locahost: the port you set ', the Table are then created automatically 
