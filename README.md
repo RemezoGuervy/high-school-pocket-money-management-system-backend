@@ -1,8 +1,8 @@
 # high-school-pocket-money-management-system-backend
 
-**Student Name:** Remezo Macari Guervy
-**Student Id:** 27483
-**Project Name:** High school pocket money management system
+**Student Name:** Remezo Macari Guervy..
+**Student Id:** 27483..
+**Project Name:** High school pocket money management system..
 
 ## Steps to run the API
 
